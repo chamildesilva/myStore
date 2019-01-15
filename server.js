@@ -23,7 +23,7 @@ mongoose.connect(secret.database, function(err){
     if (err){
         console.log(err);
     } else {
-        console.log("Connected to the database");
+        console.log("**Connected to the database**");
     }
 });
 
@@ -77,5 +77,5 @@ app.use('/api', apiRoutes);
 
 app.listen(secret.port, function(err) {
     if(err) throw err;
-    console.log("Server is Running" + secret.port);
+    console.log("**Server is Running" + secret.port + '**');
 });

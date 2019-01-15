@@ -28,10 +28,10 @@ function paginate(req, res, next) {
 //create product mapping with elasticseach
 Product.createMapping(function(err, mapping){
   if(err){
-    console.log("err creating mapping");
+    console.log("Error creating Product mapping");
     console.log(err);
   } else {
-    console.log("Mapping Created");
+    console.log("**Product Mapping Created- Elasticseach**");
     console.log(mapping);
   }
 });
@@ -46,13 +46,14 @@ stream.on('data', function(){
 });
 
 stream.on('close', function(){
-  console.log( "Indexed" + count + "documents")
+  console.log( "**Elasticsearch - Indexed " + count + " documents**")
 });
 
 stream.on('error', function(err){
   console.log(err)
 });
 
+//Cart object
 router.get('/cart', function(req, res, next) {
   Cart
     .findOne({ owner: req.user._id})
@@ -60,13 +61,14 @@ router.get('/cart', function(req, res, next) {
     .exec(function (err, foundCart){
       if(err) return next(err);
       res.render('main/cart', {
-        foundCart: foundCart
+        foundCart: foundCart,
+        message: req.flash('remove')
       });
     });
 });
 
 
-//cart route
+//product adding to cart
 router.post('/product/:product_id', function (req, res, next) {
   Cart.findOne({owner: req.user._id}, function(err, cart) {
     cart.items.push({
@@ -80,6 +82,21 @@ router.post('/product/:product_id', function (req, res, next) {
     cart.save(function(err){
       if (err) return next(err);
       return res.redirect('/cart');
+    });
+  });
+});
+
+//remove itmes from the cart
+router.post('/remove', function(req, res, next){
+  Cart.findOne({owner: req.user._id}, function(err, foundCart){
+    foundCart.items.pull(String(req.body.item));
+
+    //subtract removed total from cart's total
+    foundCart.total = (foundCart.total) - parseFloat(req.body.price).toFixed(2);
+    foundCart.save(function (err, found) {
+      if(err) return next(err);
+      req.flash('remove','Successfully removed');
+      res.redirect('/cart');
     });
   });
 });
