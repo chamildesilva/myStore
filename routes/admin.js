@@ -36,6 +36,7 @@ var upload = multer({
     fileFilter: fileFilter
 });
 
+//add-category
 router.get('/add-category', function(req, res, next){
     res.render('admin/add-category', {message: req.flash('success')});
 });

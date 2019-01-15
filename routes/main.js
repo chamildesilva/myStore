@@ -88,8 +88,9 @@ router.post('/product/:product_id', function (req, res, next) {
 //send search query
 router.post('/search', function(req, res, next){
   res.redirect('/search?q=' + req.body.q);
-})
+});
 
+//search product from Elasticsearch
 router.get('/search', function(req, res, next){
   if (req.query.q){
     Product.search({

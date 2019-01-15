@@ -25,7 +25,7 @@ mongoose.connect(secret.database, function(err){
     } else {
         console.log("Connected to the database");
     }
-})
+});
 
 app.use(express.static(__dirname + '/public'));
 app.use(morgan('dev'));
@@ -57,8 +57,8 @@ app.use(function(req, res, next){
         if (err) return next(err);
         res.locals.categories = categories;
         next();
-    })
-})
+    });
+});
 
 //EJS engine
 app.engine('ejs', ejs_mate);
