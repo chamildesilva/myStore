@@ -1,0 +1,53 @@
+<% layout('layout') -%>
+
+<div class="row">
+    <div class="col-lg-6 col-md-offset-3">
+
+        <% if (message.length > 0) { %>
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismmiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <%= message %>
+        </div>
+        <% } %>
+
+        <form method="post" enctype="multipart/form-data">
+
+            <h1> Add a new Product </h1>
+            <div class="form-group">
+                <label="name">Category: </label>
+                <!-- <input type="text" class="form-control" name="category"> -->
+                <select class="form-control" data-style="btn-info" name="category">
+                       
+                        <option value="">Select Category</option>
+                        <% categories.forEach(function(category){ %>
+                        <option value="<%= category.name %>"><%= category.name %></option>
+                        <% }) %>                   
+                </select>
+
+                <label="name">Name: </label>
+                <input type="text" class="form-control" name="productName" required>
+                <label="name">Price: </label>
+                <input type="text" class="form-control" name="productPrice" required>
+                <label="name">Image: </label>
+                <!-- <input type="text" class="form-control" name="productImage"> -->
+                <input class="form-control" type="file"  name="productImage" accept="image/png, image/jpeg" required>
+                <!-- <input type="submit" value="Upload"> -->
+             
+
+                <!-- <li><a class="form-control" data-toggle="dropdown" href="#">Categories</a>
+                    <ul class="form-control">
+                      <% for (var i = 0; i < categories.length; i++)  { %>
+                      <li><a href="/products/<%= categories[i]._id %>">
+                          <%= categories[i].name %></a></li>
+                      <% } %>
+                    </ul>
+                </li> -->
+
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>        
+        </form>
+        
+    </div>
+</div>
