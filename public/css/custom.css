@@ -4,8 +4,15 @@ body {
 
 #navbar-gap {
   margin-top: -4%;
+   /* -4%; */
 }
 
 .product-image {
   width: 100%;
 }
+#my-image-size {
+  width: 100%;
+  height: 200px; 
+}
+
+/******** Carousel *****************/

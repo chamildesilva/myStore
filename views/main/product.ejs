@@ -14,30 +14,38 @@
 
     <div class="col-md-4">
       <h3><%= product.name %></h3>
-      <h1><%= product.price %></h1>
+      <h2>$<%= product.price %></h2>
 
+      <button type="button" class="btn btn-small btn-success">
+      <%= (product.quantityavailable) > 0? 'In Stock ': 'Out of Stock ' %><span class="badge badge-pill badge-success"><%= (product.quantityavailable) %></span>
+      </button>
+      <p>&nbsp;</p>
       <form method="post">
         <div class="btn-group" role="group" aria-label="...">
           <input type="hidden" name="quantity" id="quantity" value="1"></input>
-          <button type="button" id="minus" class="btn btn-default">-</button>
+          <button type="button" id="minus" class="btn btn-primary">-</button>
           <button type="button" id="total" class="btn btn-default">1</button>
-          <button type="button" id="plus" class="btn btn-default">+</button>
+          <button type="button" id="plus" class="btn btn-primary">+</button>
         </div>
-        
+        <p>&nbsp;</p>
         <div class="form-group">
             <input type="hidden" name="product_id" id="quantity" value="<%= product._id %>"></input>
             <input type="hidden" name="priceHidden" id="priceHidden" value="<%= product.price %>"></input>
   
-            <input type="text" name="item" class="form-control" value="<%= product.name %>"></input>
-            <input type="text" name="priceValue" id="priceValue" class="form-control" value="<%= product.price %>"></input>
-          </div>
-  
-          <% if (user)  { %>
+            <input type="text" readonly="readonly" name="item" class="form-control" value="<%= product.name %>"></input>
+            <br>
+            <h4>Total (CAD):</h4> <input type="text" readonly="readonly" name="priceValue" id="priceValue" class="form-control" value= "<%= product.price %>"></input>
+        </div>
+        
+        <!-- Show button If quantityavailable is greater than zero -->
+        <% if (product.quantityavailable > 0) { %>
+          <% if (user) { %>
             <button type="submit" class="btn btn-primary btn-lg">Add to Cart</button>
           <% } else { %>
-            <a href='/signup' class="btn btn-warning btn-lg">Signup to begin buying!</a>
+            <a href='/login' class="btn btn-info btn-small">login</a>
+            <a href='/signup' class="btn btn-info btn-small">Create your accoint</a>
           <% } %>
-
+        <% } %>
       </form>
 
 

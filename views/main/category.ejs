@@ -2,13 +2,14 @@
 
 
 <div class="container">
-  <div class="row">
+  <h3><span class="label label-default"><%= products[0].category.name %></span></h3>
 
+  <div class="row">     
     <% for (var i = 0; i < products.length; i++) { %>
     <div class="col-md-4">
       <a href="/product/<%= products[i]._id %>">
         <div class="thumbnail">
-          <img src="<%= products[i].image %>">
+          <img src="<%= products[i].image %>" id="my-image-size">
           <div class="caption">
             <h3><%= products[i].name %></h3>
             <p><%= products[i].category.name %></h3>

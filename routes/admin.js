@@ -73,7 +73,7 @@ router.post('/add-product', upload.single('productImage'), function(req, res, ne
               product.category = category._id;
               product.name = req.body.productName;
               product.price = req.body.productPrice;
-              
+              product.quantityavailable = req.body.quantityAvailable;
               //replace 'public' before saving to database
               product.image = req.file.path.replace('public','');
        

@@ -6,20 +6,52 @@
     <div class="col-sm-6 col-md-4">
       <img class="img-circle img-responsive img-center" src="<%= user.profile.picture %>" alt="">
 
-      <br/>
-      <p>Name: <%= user.profile.name %></p>
-      <p>Email: <%= user.email %></p>
+      <br />
+      <p>Name:
+        <%= user.profile.name %>
+      </p>
+      <p>Email:
+        <%= user.email %>
+      </p>
 
       <% if (user.address === "" || typeof user.address === 'undefined')  { %>
-        <p>Address: <span style="color: #c0392b; font-weight: bold">You have no address</span></p>
+      <p>Address: <span style="color: #c0392b; font-weight: bold">You have no address</span></p>
 
       <% } else { %>
 
-      <p>Address: <%= user.address %></p>
+      <p>Address:
+        <%= user.address %>
+      </p>
 
       <% } %>
 
       <a href="/edit-profile" class="btn btn-primary btn-lg">Edit Profile</a>
     </div>
+    <!-- Purchase history -->
+    <div class="col-md-6">
+      <h3 class="text-center">Purchase History</h3>
+
+      <table class="table table-striped sticky-header">
+        <thead>
+          <tr>
+            <th>Item's Name</th>
+            <th>Quantity</th>
+            <th>Paid Amount</th>
+            <th>Date</th>
+          </tr>
+        <tbody>
+          <% for(var i = 0; i < user.history.length; i++) {%>
+          <tr>
+            <td><%= user.history[i].item.name %></td>
+            <td><%= user.history[i].quantity %></td>
+            <td><%= user.history[i].paid %></td>
+            <td><%= (user.history[i].paiddate).toDateString() %></td>
+          </tr>
+          <% } %>
+        </tbody>
+        </thead>
+      </table>
+    </div>
+    <!-- End purchase-history -->
   </div>
 </div>
