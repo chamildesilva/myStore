@@ -11,7 +11,8 @@
     
     <% for (var i = 0; i < data.length; i++) { %>
     <div class="col-md-4">
-      <a href="/product/<%= data[i]._source._id %>">
+      <!-- <a href="/product/<%= data[i]._source._id %>"> -->
+      <a href="/product/<%= data[i]._id %>">
         <div class="thumbnail">
           <img src="<%= data[i]._source.image %>" id="my-image-size">
           <div class="caption">

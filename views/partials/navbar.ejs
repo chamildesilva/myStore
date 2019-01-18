@@ -59,6 +59,17 @@
 
       <% } %>
 
+      
+      <% if ((user) &&  (user.admin === 1 )) { %>
+
+      <li><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin</a>
+          <ul class="dropdown-menu">
+            <li><a href="/add-category">Add Category</a></li>
+            <li><a href="/add-product">Add Product</a></li>
+          </ul>
+      </li>
+      <% } %>
+
     </ul>
   </div>
 </nav>

@@ -20,7 +20,8 @@ var UserSchema = new Schema({
         item: {type: Schema.Types.ObjectId, ref:'Product'},
         quantity: {type: Number, default: 0},
         paiddate: {type: Date}
-    }]
+    }],
+    admin:{type:Number, default:0}
 });
 
 //Hash the password before save to the db

@@ -120,7 +120,8 @@ router.get('/search', function (req, res, next) {
     }, function (err, results) {
       if (err) return next(err);
       var data = results.hits.hits.map(function (hit) {
-        return hit;
+       return hit;
+        
       });
       res.render('main/search-result', {
         query: req.query.q,

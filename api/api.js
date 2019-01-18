@@ -11,7 +11,7 @@ router.post('/search', function(req, res, next){
         query_string: {query: req.body.search_term}
     }, function(err, results){
         if (err) return next(err);
-        res.json(results);
+        res.json(results);  
     });
 });
 
