@@ -2,6 +2,7 @@
 
 
 <div class="container">
+  <% if (products.length > 0)  { %>
   <h3><span class="label label-default"><%= products[0].category.name %></span></h3>
 
   <div class="row">     
@@ -20,4 +21,7 @@
     </div>
     <% } %>
   </div>
+  <% } else { %>
+    <h3 class="alert alert-warning">No products found</h3>
+  <% } %>
 </div>

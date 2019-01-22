@@ -4,6 +4,8 @@ var Category = require('../models/category');
 var Product = require('../models/product');
 var path = require('path');
 var fs = require('fs');
+var passportConf = require('../config/passport');
+var User = require('../models/user');
 //upload files
 var multer = require('multer');
 
@@ -37,10 +39,24 @@ var upload = multer({
 });
 
 //add-category
-router.get('/add-category', function(req, res, next){
-    res.render('admin/add-category', {message: req.flash('success')});
+// router.get('/add-category', function(req, res, next){
+//     res.render('admin/add-category', {message: req.flash('success')});
+// });
+
+//user validation before getting category page
+router.get('/add-category',passportConf.isAuthenticated, function(req, res, next){
+    User.findOne({_id: req.user._id }, function(err, user){   
+
+        if (user.admin === 1){
+            res.render('admin/add-category', {message: req.flash('success')});
+        } else {                        
+            res.render('admin/error-admin');   
+            if(err) next(err);         
+        }
+    });
 });
 
+//post category
 router.post('/add-category', function(req, res, next){
     var category = new Category();
     category.name = req.body.name;
@@ -52,12 +68,25 @@ router.post('/add-category', function(req, res, next){
     });
 });
 
-//add-product
-router.get('/add-product', function(req, res, next){
-    res.render('admin/add-product', {message: req.flash('success')});
+// //add-product
+// router.get('/add-product', function(req, res, next){
+//     res.render('admin/add-product', {message: req.flash('success')});
+// });
+
+//user validation before getting product page
+router.get('/add-product', passportConf.isAuthenticated, function(req, res, next){
+    User.findOne({_id: req.user._id}, function(err, user){
+        
+        if (user.admin === 1){
+            res.render('admin/add-product', {message: req.flash('success')});
+        } else {                        
+            res.render('admin/error-admin');   
+            if(err) next(err);         
+        }
+    })
 });
 
-
+//product post
 router.post('/add-product', upload.single('productImage'), function(req, res, next){
    //console.log(path.join(__dirname,'..', req.file.path));
     async.waterfall([
@@ -72,6 +101,7 @@ router.post('/add-product', upload.single('productImage'), function(req, res, ne
               var product = new Product();
               product.category = category._id;
               product.name = req.body.productName;
+              product.description = req.body.productDescription;
               product.price = req.body.productPrice;
               product.quantityavailable = req.body.quantityAvailable;
               //replace 'public' before saving to database
